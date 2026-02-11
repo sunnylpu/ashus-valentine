@@ -38,7 +38,7 @@ const Card = ({ reason, index }: { reason: string; index: number }) => {
                 style={{ transformStyle: "preserve-3d" }}
                 initial={false}
                 animate={{ rotateY: isFlipped ? 180 : 0 }}
-                transition={{ duration: 0.6, animationDirection: "normal" }}
+                transition={{ duration: 0.6 }}
                 onAnimationComplete={() => setIsAnimating(false)}
             >
                 {/* Front */}
