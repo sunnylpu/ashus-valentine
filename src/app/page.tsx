@@ -1,65 +1,92 @@
-import Image from "next/image";
+"use client";
+
+import { useState } from "react";
+import Gateway from "@/components/personalization/Gateway";
+import NicknameSection from "@/components/personalization/NicknameSection";
+import SecretsSection from "@/components/personalization/SecretsSection";
+import WhisperMode from "@/components/personalization/WhisperMode";
+import VoiceReveal from "@/components/personalization/VoiceReveal";
+import FloatingSurprise from "@/components/personalization/FloatingSurprise";
+import HiddenHeart from "@/components/personalization/HiddenHeart";
+
+import HeroSection from "@/components/sections/HeroSection";
+import IntroSection from "@/components/premium/IntroSection";
+import MemoryTimeline from "@/components/premium/MemoryTimeline";
+import StarMapSection from "@/components/premium/StarMapSection";
+import IfICouldSection from "@/components/premium/IfICouldSection";
+import HiddenVideo from "@/components/premium/HiddenVideo";
+import LoveGame from "@/components/premium/LoveGame";
+import ReasonsSection from "@/components/sections/ReasonsSection";
+import MeaningSection from "@/components/premium/MeaningSection";
+import LetterSection from "@/components/sections/LetterSection";
+import PromisesSection from "@/components/premium/PromisesSection";
+import ProposalSection from "@/components/sections/ProposalSection";
+import BackgroundMusic from "@/components/audio/BackgroundMusic";
+import StarryBackground from "@/components/background/StarryBackground";
+import { AnimatePresence, motion } from "framer-motion";
 
 export default function Home() {
+  const [started, setStarted] = useState(false);
+  const [unlocked, setUnlocked] = useState(false);
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <main className="relative min-h-screen bg-midnight-blue selection:bg-rose-500 selection:text-white overflow-hidden">
+      <StarryBackground />
+      <BackgroundMusic />
+
+      {/* Interactive Floating/Overlay Elements */}
+      {unlocked && (
+        <>
+          <WhisperMode />
+          <FloatingSurprise />
+          <HiddenHeart />
+        </>
+      )}
+
+      <AnimatePresence mode="wait">
+        {!unlocked ? (
+          <motion.div key="gateway" exit={{ opacity: 0 }}>
+            <Gateway onUnlock={() => setUnlocked(true)} />
+          </motion.div>
+        ) : !started ? (
+          <motion.div
+            key="hero"
+            exit={{ opacity: 0, transition: { duration: 1.5 } }}
+            className="absolute inset-0 z-50"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            <HeroSection onStart={() => setStarted(true)} />
+          </motion.div>
+        ) : (
+          <motion.div
+            key="content"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 2 }}
+            className="relative z-10"
           >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+            <div className="relative z-10 space-y-20 pb-32">
+              <NicknameSection />
+              <IntroSection />
+              <MemoryTimeline />
+              <StarMapSection />
+              <IfICouldSection />
+              <HiddenVideo />
+              <LoveGame />
+              <ReasonsSection />
+              <MeaningSection />
+              <SecretsSection />
+              <VoiceReveal />
+              <LetterSection />
+              <PromisesSection />
+              <ProposalSection />
+
+              <footer className="text-center py-20 opacity-60">
+                <p className="font-cormorant italic text-lg">Yours Forever, Sunny.</p>
+              </footer>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </main>
   );
 }
