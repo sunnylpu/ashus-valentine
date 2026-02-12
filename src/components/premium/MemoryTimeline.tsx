@@ -1,9 +1,9 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { timelineData } from "@/lib/data";
-import { Heart, Camera, MessageCircle, Frown, Smile } from "lucide-react";
+import { Heart, Camera, MessageCircle, Frown, Smile, Play, Pause } from "lucide-react";
 
 export default function MemoryTimeline() {
     const containerRef = useRef(null);
@@ -13,6 +13,32 @@ export default function MemoryTimeline() {
     });
 
     const scaleY = useTransform(scrollYProgress, [0, 1], [0, 1]);
+
+    const [playingIndex, setPlayingIndex] = useState<number | null>(null);
+    const audioRefs = useRef<{ [key: number]: HTMLAudioElement }>({});
+
+    const toggleAudio = (index: number) => {
+        // Stop currently playing
+        if (playingIndex !== null && playingIndex !== index) {
+            audioRefs.current[playingIndex]?.pause();
+        }
+
+        if (!audioRefs.current[index]) {
+            // In a real app, these would be unique filenames like /audio/memory-1.mp3
+            // For now using the generic intro or a placeholder
+            audioRefs.current[index] = new Audio("/audio/heartbeat.mp3"); // Placeholder
+            audioRefs.current[index].onended = () => setPlayingIndex(null);
+        }
+
+        const audio = audioRefs.current[index];
+        if (playingIndex === index) {
+            audio.pause();
+            setPlayingIndex(null);
+        } else {
+            audio.play().catch(e => console.log("Audio play failed", e));
+            setPlayingIndex(index);
+        }
+    };
 
     const getIcon = (type: string) => {
         switch (type) {
@@ -56,8 +82,18 @@ export default function MemoryTimeline() {
                                 className="w-full md:w-5/12 ml-12 md:ml-0 md:px-0 px-4"
                             >
                                 <div className="bg-white/5 backdrop-blur-md border border-white/10 p-6 rounded-xl hover:bg-white/10 transition-colors duration-300 shadow-xl relative group">
-                                    <span className="text-champagne-gold font-poppins text-xs tracking-widest uppercase">{item.date}</span>
-                                    <h3 className="text-2xl font-playfair text-warm-ivory mt-2 mb-3">{item.title}</h3>
+                                    <div className="flex justify-between items-start mb-2">
+                                        <span className="text-champagne-gold font-poppins text-xs tracking-widest uppercase">{item.date}</span>
+                                        {/* Audio Button */}
+                                        <button
+                                            onClick={() => toggleAudio(index)}
+                                            className="text-white/50 hover:text-rose-500 transition-colors"
+                                            title="Play Memory"
+                                        >
+                                            {playingIndex === index ? <Pause size={16} /> : <Play size={16} />}
+                                        </button>
+                                    </div>
+                                    <h3 className="text-2xl font-playfair text-warm-ivory mb-3">{item.title}</h3>
                                     <p className="text-gray-300 font-inter leading-relaxed text-sm">{item.description}</p>
 
                                     {/* Handwriting Decoration */}

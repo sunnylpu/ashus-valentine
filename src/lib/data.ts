@@ -85,15 +85,54 @@ export const loveLetter = [ // "A Letter To My Ashu"
     "Humare liye."
 ];
 
-export const promises = [
-    "Main vaada karta hoon ki tumhari izzat karunga — tab bhi jab humari soch na mile.",
-    "Main vaada karta hoon ki chup rehne ki jagah tumse baat karunga.",
-    "Main vaada karta hoon ki tumhare sapno ko apna maan kar support karunga.",
-    "Main vaada karta hoon ki tumhe hi chununga — sirf khushi mein nahi, mushkil waqt mein bhi."
+
+export const reasons = whyYouContent; // Alias for compatibility
+
+// --- ULTRA FINAL PREMIUM CONTENT ---
+
+export const deserveMoreContent = {
+    title: "You Deserve More Than Just Love",
+    items: [
+        "You deserve someone who respects you — even when we disagree.",
+        "You deserve someone who listens — not just to reply, but to understand.",
+        "You deserve someone who stands by you — when the world stands against you.",
+        "You deserve someone who never makes you feel alone — even in a crowded room."
+    ],
+    closing: "I promise to try to be that person for you. Every. Single. Day."
+};
+
+export const relationshipPromises = [
+    {
+        title: "If We Ever Fight...",
+        text: "I will listen. I will calm down before reacting. I will never disrespect you."
+    },
+    {
+        title: "When You Are Low...",
+        text: "I will not ask 'Why?'. I will just be there until you feel okay."
+    },
+    {
+        title: "My Choice...",
+        text: "I don't love you because I have to. I love you because I choose to. And I'll keep choosing you."
+    },
+    {
+        title: "Us Over Ego...",
+        text: "For me, winning an argument will never be more important than 'Us'."
+    }
 ];
 
+export const midnightModeContent = {
+    triggerRequest: "Night Mode for Us 🌙",
+    message: "Even in the darkest nights, you are my light."
+};
+
+export const qrCodeContent = {
+    title: "Scan This When You Miss Me",
+    instruction: "Ek chota sa surprise... sirf tumhare liye hidden hai."
+};
+
 export const proposalContent = {
-    title: "Hamesha Tumhare Saath",
+    title: "One Last Thing...",
+    finalQuestion: "Not just today... But for every tomorrow.\nWill you stay?",
     textParts: [
         "Ashu… Main sirf tumse pyaar nahi karta. Main tumhe chunta hoon.",
         "Har roz. Har mood mein. Tumhare har roop mein.",
@@ -107,8 +146,6 @@ export const proposalContent = {
         "Kya tum mujhe tumhe pyaar karne dogi — puri tarah, imaandari se, bepanaah?",
         "Kya tum meri banogi — sirf ek pal ke liye nahi… balki us future ke liye jo humne abhi dekha bhi nahi?",
         "Kyunki Ashu… Agar 'Hamesha' kuch hota hai — toh mujhe wo tumhare saath chahiye.",
-        "Kya tum mere saath rahogi… hamesha? 💍"
+        "Will you be my Valentine? (Aur sirf Valentine nahi... meri Hamesha?) 💍"
     ]
 };
-
-export const reasons = whyYouContent; // Alias for compatibility

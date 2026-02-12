@@ -21,8 +21,11 @@ import MeaningSection from "@/components/premium/MeaningSection";
 import LetterSection from "@/components/sections/LetterSection";
 import PromisesSection from "@/components/premium/PromisesSection";
 import ProposalSection from "@/components/sections/ProposalSection";
+import DeserveMoreSection from "@/components/premium/DeserveMoreSection";
+import QRCodeSection from "@/components/premium/QRCodeSection";
 import BackgroundMusic from "@/components/audio/BackgroundMusic";
 import StarryBackground from "@/components/background/StarryBackground";
+import FloatingNameBackground from "@/components/background/FloatingNameBackground";
 import { AnimatePresence, motion } from "framer-motion";
 
 export default function Home() {
@@ -32,6 +35,7 @@ export default function Home() {
   return (
     <main className="relative min-h-screen bg-midnight-blue selection:bg-rose-500 selection:text-white overflow-hidden">
       <StarryBackground />
+      <FloatingNameBackground />
       <BackgroundMusic />
 
       {/* Interactive Floating/Overlay Elements */}
@@ -74,10 +78,12 @@ export default function Home() {
               <LoveGame />
               <ReasonsSection />
               <MeaningSection />
+              <DeserveMoreSection />
               <SecretsSection />
               <VoiceReveal />
               <LetterSection />
               <PromisesSection />
+              <QRCodeSection />
               <ProposalSection />
 
               <footer className="text-center py-20 opacity-60">

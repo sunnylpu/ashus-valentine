@@ -1,34 +1,53 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { promises } from "@/lib/data";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { relationshipPromises } from "@/lib/data";
 
 export default function PromisesSection() {
-    return (
-        <section className="py-24 px-4 bg-midnight-blue relative">
-            <div className="max-w-4xl mx-auto">
-                <h2 className="text-4xl md:text-6xl font-great-vibes text-center text-wine-red mb-16 drop-shadow-[0_0_15px_rgba(154,9,48,0.5)]">
-                    My Promises to You
-                </h2>
+    const containerRef = useRef<HTMLDivElement>(null);
+    const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ["start end", "end start"]
+    });
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    {promises.map((promise, index) => (
-                        <motion.div
-                            key={index}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ delay: index * 0.2 }}
-                            className="p-8 border border-champagne-gold/20 rounded-lg bg-gradient-to-br from-white/5 to-transparent backdrop-blur-sm hover:border-champagne-gold/50 transition-colors group"
-                        >
-                            <div className="text-champagne-gold text-xl mb-4 opacity-50 font-playfair italic">
-                                Promise {index + 1}
-                            </div>
-                            <p className="font-cormorant text-2xl text-warm-ivory leading-relaxed">
-                                {promise}
+    return (
+        <section ref={containerRef} className="py-32 px-4 relative max-w-6xl mx-auto">
+            <motion.h2
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                className="font-great-vibes text-5xl md:text-7xl text-center text-rose-300 mb-24"
+            >
+                If We Ever Fight...
+            </motion.h2>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {relationshipPromises.map((promise, index) => (
+                    <motion.div
+                        key={index}
+                        initial={{ opacity: 0, y: 50 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: index * 0.2 }}
+                        className="group relative"
+                    >
+                        <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-white/0 rounded-2xl blur-xl group-hover:bg-wine-red/10 transition-colors duration-500" />
+
+                        <div className="relative border border-white/10 bg-black/20 backdrop-blur-sm p-8 rounded-2xl h-full flex flex-col justify-center text-center hover:border-wine-red/30 transition-colors duration-500">
+                            <h3 className="font-playfair text-2xl text-champagne-gold mb-4">
+                                {promise.title}
+                            </h3>
+                            <p className="font-cormorant text-xl text-white/80 leading-relaxed">
+                                {promise.text}
                             </p>
-                        </motion.div>
-                    ))}
-                </div>
+                        </div>
+                    </motion.div>
+                ))}
+            </div>
+
+            <div className="mt-20 text-center">
+                <p className="font-inter text-xs text-white/30 uppercase tracking-widest">
+                    This is my commitment to you.
+                </p>
             </div>
         </section>
     );
